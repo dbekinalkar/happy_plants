@@ -20,7 +20,7 @@ class _PlantCardState extends State<PlantCard> {
   @override
   void initState() {
     super.initState();
-    _timer = Timer.periodic(Duration(minutes: 1), (Timer t) => setState(() {}));
+    _timer = Timer.periodic(const Duration(minutes: 1), (Timer t) => setState(() {}));
   }
 
   @override
@@ -36,7 +36,7 @@ class _PlantCardState extends State<PlantCard> {
         title: Text(widget.plant.name),
         subtitle: Text(
             'Next watering in: ${formatDuration(widget.plant.nextWateringTime.difference(DateTime.now()))}'),
-        trailing: Icon(Icons.chevron_right),
+        trailing: const Icon(Icons.chevron_right),
         onTap: () {
           Navigator.push(
             context,

@@ -9,7 +9,7 @@ import '../utils/utils.dart';
 class PlantDetailScreen extends StatefulWidget {
   final Plant plant;
 
-  PlantDetailScreen({required this.plant});
+  const PlantDetailScreen({super.key, required this.plant});
 
   @override
   _PlantDetailScreenState createState() => _PlantDetailScreenState();
@@ -23,7 +23,7 @@ class _PlantDetailScreenState extends State<PlantDetailScreen> {
   @override
   void initState() {
     super.initState();
-    _timer = Timer.periodic(Duration(minutes: 1), (Timer t) => setState(() {}));
+    _timer = Timer.periodic(const Duration(minutes: 1), (Timer t) => setState(() {}));
   }
 
   @override
@@ -43,14 +43,12 @@ class _PlantDetailScreenState extends State<PlantDetailScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Plant Name: ${widget.plant.name}', style: TextStyle(fontSize: 20)),
-            SizedBox(height: 16.0),
-            Text('Water Amount: ${widget.plant.waterAmount ?? 'Not specified'}L', style: TextStyle(fontSize: 20)),
-            SizedBox(height: 16.0),
-            Text('Watering Frequency: Every ${widget.plant.wateringFrequency.inDays} days', style: TextStyle(fontSize: 20)),
-            SizedBox(height: 16.0),
-            Text('Next Watering Time: ${formatDuration(widget.plant.nextWateringTime.difference(DateTime.now()))}', style: TextStyle(fontSize: 20)),
-            SizedBox(height: 16.0),
+            Text('Plant Name: ${widget.plant.name}', style: const TextStyle(fontSize: 20)),
+            const SizedBox(height: 16.0),
+            Text('Watering Frequency: Every ${widget.plant.wateringFrequency.inDays} days', style: const TextStyle(fontSize: 20)),
+            const SizedBox(height: 16.0),
+            Text('Next Watering Time: ${formatDuration(widget.plant.nextWateringTime.difference(DateTime.now()))}', style: const TextStyle(fontSize: 20)),
+            const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
                 plantService.waterPlant(widget.plant.id);

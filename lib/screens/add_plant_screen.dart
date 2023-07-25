@@ -6,6 +6,8 @@ import '../services/notification_service.dart';
 import '../models/plant_model.dart';
 
 class AddPlantScreen extends StatefulWidget {
+  const AddPlantScreen({super.key});
+
   @override
   _AddPlantScreenState createState() => _AddPlantScreenState();
 }
@@ -15,7 +17,6 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
   final notificationService = GetIt.I<NotificationService>();
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
-  final _waterAmountController = TextEditingController();
   final _wateringFrequencyController = TextEditingController();
   final uuid = const Uuid();
 
@@ -44,19 +45,6 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
                 },
               ),
               TextFormField(
-                controller: _waterAmountController,
-                decoration: const InputDecoration(
-                  labelText: 'Water Amount (L)',
-                ),
-                keyboardType: TextInputType.number,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter the water amount';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
                 controller: _wateringFrequencyController,
                 decoration: const InputDecoration(
                   labelText: 'Watering Frequency (days)',
@@ -76,11 +64,8 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
                     final newPlant = Plant(
                       id: uuid.v1(),
                       name: _nameController.text,
-                      waterAmount: double.parse(_waterAmountController.text),
                       wateringFrequency: Duration(
                           days: int.parse(_wateringFrequencyController.text)),
-                      nextWateringTime: DateTime.now().add(Duration(
-                          days: int.parse(_wateringFrequencyController.text))),
                     );
                     plantService.addPlant(newPlant);
                     notificationService.scheduleNotification(newPlant);

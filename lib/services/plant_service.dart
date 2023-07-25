@@ -1,18 +1,30 @@
-import 'package:flutter/material.dart';
 import '../models/plant_model.dart';
+import '../services/plant_persistence_service.dart';
+import 'package:get_it/get_it.dart';
 
 class PlantService {
+  final plantPersistenceService = GetIt.I<PlantPersistenceService>();
+
   List<Plant> _plants = [];
 
   List<Plant> get allPlants => _plants;
 
+  PlantService() {
+    loadPlants();
+  }
+
+  Future<void> loadPlants() async {
+    _plants = await plantPersistenceService.loadPlants();
+  }
+
   void addPlant(Plant plant) {
     _plants.add(plant);
-    debugPrint('Plant added: ${plant.name}');
+    plantPersistenceService.storePlants(_plants);
   }
 
   void deletePlant(String id) {
     _plants.removeWhere((plant) => plant.id == id);
+    plantPersistenceService.storePlants(_plants);
   }
 
   Plant getPlant(String id) {
@@ -25,5 +37,6 @@ class PlantService {
       Plant plant = _plants[index];
       plant.nextWateringTime = DateTime.now().add(plant.wateringFrequency);
     }
+    plantPersistenceService.storePlants(_plants);
   }
 }
