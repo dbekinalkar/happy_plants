@@ -91,21 +91,27 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
                 },
                 child: const Text('Save'),
               ),
-              IconButton(
-              onPressed: () {
-                plantService.addPlant(Plant(
-                  id: uuid.v1(),
-                  name: "Test Plant",
-                  waterAmount: 1,
-                  wateringFrequency: const Duration(
-                    days: 2,
-                  ),
-                  nextWateringTime: DateTime.now().add(const Duration(
-                    minutes: 2,
-                  )),
-                ));
-              },
-              icon: const Icon(Icons.quiz)),
+              /*IconButton(
+                  onPressed: () {
+                    Plant plant = Plant(
+                      id: uuid.v1(),
+                      name: "Test Plant",
+                      waterAmount: 1,
+                      wateringFrequency: const Duration(
+                        minutes: 2,
+                      ),
+                      nextWateringTime: DateTime.now().add(const Duration(
+                        minutes: 2,
+                      )),
+                    );
+
+                    plantService.addPlant(plant);
+                    notificationService.scheduleNotification(plant);
+
+                    Navigator.pop(context, plant);
+                  },
+                  icon: const Icon(Icons.quiz)
+                ),*/
             ],
           ),
         ),
