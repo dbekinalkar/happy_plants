@@ -10,8 +10,8 @@ class PlantCard extends StatefulWidget {
   final Function deletePlant;
   final Function waterPlant;
 
-  PlantCard(
-      {required this.plant,
+  const PlantCard(
+      {super.key, required this.plant,
       required this.deletePlant,
       required this.waterPlant});
 
@@ -96,4 +96,3 @@ class _PlantCardState extends State<PlantCard> {
   }
 }
 
-// Similar changes for PlantDetailScreen

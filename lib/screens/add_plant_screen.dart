@@ -31,7 +31,11 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
           shape: const CircleBorder(),
         ),
         child: IconButton(
-          icon: Icon(icon, color: color, shadows: const <Shadow>[Shadow(color: Colors.black, blurRadius: 3)],),
+          icon: Icon(
+            icon,
+            color: color,
+            shadows: const <Shadow>[Shadow(color: Colors.black, blurRadius: 3)],
+          ),
           onPressed: () {
             setState(() {
               _selectedIcon = icon;
@@ -85,7 +89,10 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter the watering frequency';
+                  } else if (double.tryParse(value) == null) {
+                    return 'Please enter a valid number';
                   }
+
                   return null;
                 },
               ),
