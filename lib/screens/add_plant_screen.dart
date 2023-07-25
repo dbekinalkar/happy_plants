@@ -19,9 +19,31 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
   final _nameController = TextEditingController();
   final _wateringFrequencyController = TextEditingController();
   final uuid = const Uuid();
+  IconData _selectedIcon = Icons.local_florist;
+  Color _selectedColor = Colors.green;
 
   @override
   Widget build(BuildContext context) {
+    Widget _buildIconButton(IconData icon, Color color) {
+      return Container(
+        decoration: ShapeDecoration(
+          color: color == _selectedColor ? Colors.grey[300] : Colors.white,
+          shape: const CircleBorder(),
+        ),
+        child: IconButton(
+          icon: Icon(icon, color: color, shadows: const <Shadow>[Shadow(color: Colors.black, blurRadius: 3)],),
+          onPressed: () {
+            setState(() {
+              _selectedIcon = icon;
+              _selectedColor = color;
+              debugPrint(
+                  _selectedIcon.toString() + ' ' + _selectedColor.toString());
+            });
+          },
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Plant'),
@@ -32,6 +54,16 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: <Widget>[
+              Row(
+                children: <Widget>[
+                  _buildIconButton(_selectedIcon, Colors.red),
+                  _buildIconButton(_selectedIcon, Colors.orange),
+                  _buildIconButton(_selectedIcon, Colors.yellow[300]!),
+                  _buildIconButton(_selectedIcon, Colors.green),
+                  _buildIconButton(_selectedIcon, Colors.blue),
+                  _buildIconButton(_selectedIcon, Colors.purple),
+                ],
+              ),
               TextFormField(
                 controller: _nameController,
                 decoration: const InputDecoration(
@@ -66,6 +98,8 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
                       name: _nameController.text,
                       wateringFrequency: Duration(
                           days: int.parse(_wateringFrequencyController.text)),
+                      icon: _selectedIcon,
+                      color: _selectedColor,
                     );
                     plantService.addPlant(newPlant);
                     notificationService.scheduleNotification(newPlant);

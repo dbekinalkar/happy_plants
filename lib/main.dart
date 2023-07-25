@@ -20,9 +20,9 @@ void main() async {
 }
 
 void setupServices() {
+  locator.registerSingleton(PlantPersistenceService());
   locator.registerSingleton(PlantService());
   locator.registerSingleton(NotificationService());
-  locator.registerSingleton(PlantPersistenceService());
 }
 
 void requestNotificationPermissions() async {

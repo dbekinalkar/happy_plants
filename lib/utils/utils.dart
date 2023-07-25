@@ -3,10 +3,10 @@ import 'package:permission_handler/permission_handler.dart';
 
 String formatDuration(Duration duration) {
   String twoDigits(int n) => n.toString().padLeft(2, "0");
-  String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
-  String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
+  // String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+  // String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
   if (duration.inHours < 24) {
-    return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds hours";
+    return "${twoDigits(duration.inHours)} hours";
   } else {
     return "${twoDigits(duration.inDays)} days ${twoDigits(duration.inHours.remainder(24))} hours";
   }
