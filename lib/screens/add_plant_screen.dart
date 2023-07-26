@@ -27,7 +27,8 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
     Widget _buildIconButton(IconData icon, Color color) {
       return Container(
         decoration: ShapeDecoration(
-          color: color == _selectedColor ? Colors.grey[300] : Colors.white,
+          color: color == _selectedColor ? const Color.fromRGBO(158, 158, 158, 0.2) : null,
+          
           shape: const CircleBorder(),
         ),
         child: IconButton(
@@ -41,7 +42,7 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
               _selectedIcon = icon;
               _selectedColor = color;
               debugPrint(
-                  _selectedIcon.toString() + ' ' + _selectedColor.toString());
+                  '$_selectedIcon $_selectedColor');
             });
           },
         ),
@@ -59,6 +60,7 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
           child: Column(
             children: <Widget>[
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   _buildIconButton(_selectedIcon, Colors.red),
                   _buildIconButton(_selectedIcon, Colors.orange),
@@ -91,6 +93,8 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
                     return 'Please enter the watering frequency';
                   } else if (double.tryParse(value) == null) {
                     return 'Please enter a valid number';
+                  } else if (double.parse(value) < 1) {
+                    return 'Please enter a number greater than 0';
                   }
 
                   return null;

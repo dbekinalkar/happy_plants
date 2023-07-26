@@ -23,7 +23,8 @@ class _PlantDetailScreenState extends State<PlantDetailScreen> {
   @override
   void initState() {
     super.initState();
-    _timer = Timer.periodic(const Duration(minutes: 1), (Timer t) => setState(() {}));
+    _timer = Timer.periodic(
+        const Duration(minutes: 1), (Timer t) => setState(() {}));
   }
 
   @override
@@ -43,11 +44,16 @@ class _PlantDetailScreenState extends State<PlantDetailScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Plant Name: ${widget.plant.name}', style: const TextStyle(fontSize: 20)),
+            Text('Plant Name: ${widget.plant.name}',
+                style: const TextStyle(fontSize: 20)),
             const SizedBox(height: 16.0),
-            Text('Watering Frequency: Every ${widget.plant.wateringFrequency.inDays} days', style: const TextStyle(fontSize: 20)),
+            Text(
+                'Watering Frequency: Every ${widget.plant.wateringFrequency.inDays} days',
+                style: const TextStyle(fontSize: 20)),
             const SizedBox(height: 16.0),
-            Text('Next Watering Time: ${formatDuration(widget.plant.nextWateringTime.difference(DateTime.now()))}', style: const TextStyle(fontSize: 20)),
+            Text(
+                'Next Watering Time: ${formatDuration(widget.plant.nextWateringTime.difference(DateTime.now()))}',
+                style: const TextStyle(fontSize: 20)),
             const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
@@ -55,6 +61,22 @@ class _PlantDetailScreenState extends State<PlantDetailScreen> {
                 notificationService.scheduleNotification(widget.plant);
               },
               child: const Text('Mark as Watered'),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+              onPressed: () {
+                notificationService.cancelNotification(widget.plant);
+                plantService.deletePlant(widget.plant.id);
+
+                Navigator.pop(context);
+
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                      content: Text('Deleted ${widget.plant.name}'),
+                      duration: const Duration(seconds: 1)),
+                );
+              },
+              child: const Text('Delete Plant'),
             ),
           ],
         ),
